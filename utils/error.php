@@ -6,3 +6,9 @@ function create_error(string $message, string $code = "")
 
     return $error_message;
 }
+
+function is_error(array $var)
+{
+    if (!isset($var["type"])) return false;
+    return $var["type"] === "error" ? true : false;
+}

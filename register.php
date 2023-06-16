@@ -11,7 +11,12 @@ function main()
     $nickname = $_POST["nickname"];
     $password = $_POST["password"];
 
-    if (Database::user()->register($nickname, $password)) redirect_main_page();
+    $result = Database::user()->register($nickname, $password);
+    if ($result === true) return redirect_main_page();
+    if (is_error($result)) {
+        $error = $result["message"];
+        echo ("<p class='error-message'>$error</p>");
+    }
 }
 main();
 ?>

@@ -42,12 +42,12 @@ class UserTable
         }
         return self::login($nickname, $password);
     }
-    function login(string $nickname, string $password)
+    function login(string $nickname, string $password): true | array
     {
         $session = Database::session()->get_session();
         $user = self::select_user($nickname);
-
-        if (!password_verify($password, $user["senha"])) return;
+        if (!$user) return create_error("Usuario nao encontrado");
+        if (!password_verify($password, $user["senha"])) return create_error("Nick ou Credenciais incorretas.");
 
         return Database::session()->set_session_user($user["idUsuario"], $session["hashSessao"]);
     }

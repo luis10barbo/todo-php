@@ -1,9 +1,9 @@
 <?php
 require_once(__DIR__ . "/db/connection.php");
 include_once(__DIR__ . "/utils/redirect.php");
-include(__DIR__ . "/utils/error.php");
-include(__DIR__ . "/utils/session.php");
-if (get_session_db()["idUsuario"]) redirect_main_page();
+include_once(__DIR__ . "/utils/error.php");
+include_once(__DIR__ . "/utils/session.php");
+if (Database::user()->is_logged_in()) redirect_main_page();
 function main()
 {
     if (!isset($_POST["nickname"]) || !isset($_POST["password"])) return;
@@ -11,7 +11,7 @@ function main()
     $nickname = $_POST["nickname"];
     $password = $_POST["password"];
 
-    if (register_user_db($nickname, $password)) redirect_main_page();
+    if (Database::user()->register($nickname, $password)) redirect_main_page();
 }
 main();
 ?>

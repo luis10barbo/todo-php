@@ -16,8 +16,8 @@
     <div>
 
         <?php
-        include(__DIR__ . "/utils/session.php");
-        $user = get_user_info();
+        include_once(__DIR__ . "/db/connection.php");
+        $user = Database::user()->get_user_info();
         if (!$user) {
             echo "
             <a href=\"register.php\">Registrar-se</a>

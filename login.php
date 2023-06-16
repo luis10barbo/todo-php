@@ -3,7 +3,7 @@ include(__DIR__ . "/utils/session.php");
 include_once(__DIR__ . "/utils/redirect.php");
 
 
-if (get_session_db()["idUsuario"]) redirect_main_page();
+if (Database::user()->is_logged_in()) redirect_main_page();
 ?>
 <form action="" method="POST">
     <input id="nickname-input" type="text" name="nickname" value="luis10barbo" placeholder="Digite seu nick aqui">
@@ -21,6 +21,6 @@ $password = $_POST["password"];
 
 if (!$nickname || !$password) return;
 
-$result = login_user_db($nickname, $password);
+$result = Database::user()->login($nickname, $password);
 if ($result) redirect_main_page();
 ?>
